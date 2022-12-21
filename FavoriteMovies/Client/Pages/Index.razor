@@ -1,9 +1,25 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
+<h1>Hello, @(User?.FirstName ?? "World!")</h1>
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
+@if (User is not null)
+{
+    <h2>Your Favorite Movies Are:</h2>
+    <table class="table" style="height:500px">
+        <tr>
+            <td class="col-sm-4">
+                @if (userFavoriteMovies is not null) {
+                    @foreach (var movie in userFavoriteMovies)
+                    {
+                        <a href="#" @onclick="@(() => ShowMovieDetails(movie))"
+               @onclick:preventDefault style="text-decoration:none; color: black">@movie.Title (@movie.Year)
+                    </a><br />
+                    }
+                }
+            </td>
+            <td class="col-sm-8">
+            <MovieDetails Movie="@MovieDetails" />
+            </td>
+        </tr>
+    </table>
+}

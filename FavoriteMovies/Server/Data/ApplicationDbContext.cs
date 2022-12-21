@@ -3,6 +3,8 @@ using FavoriteMovies.Server.Models;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using System.Security.Cryptography.X509Certificates;
+using FavoriteMovies.Shared;
 
 namespace FavoriteMovies.Server.Data
 {
@@ -13,5 +15,7 @@ namespace FavoriteMovies.Server.Data
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
+
+        public DbSet<Movie> Movies => Set<Movie>();
     }
 }

@@ -1,0 +1,9 @@
+﻿@if (Movie is not null)
+{
+    <h2>@Movie.Title (@Movie.Year)</h2>
+    <h4>@Movie.Director</h4>
+    <h4><b>@(Movie.Genre.Replace(", ", " | "))</b></h4>
+    <h4><b>@(Movie.Actors.Replace(", ", " | "))</b></h4>
+    <img src="@Movie.Poster" />
+}
+

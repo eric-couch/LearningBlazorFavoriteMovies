@@ -4,6 +4,11 @@
     <h4>@Movie.Director</h4>
     <h4><b>@(Movie.Genre.Replace(", ", " | "))</b></h4>
     <h4><b>@(Movie.Actors.Replace(", ", " | "))</b></h4>
-    <img src="@Movie.Poster" />
+    <h4>Ratings</h4>
+    @foreach (var rating in Movie.Ratings)
+    {
+        <h5>@rating.Source : @rating.Value</h5>
+    }
+    <a href="@($"https://www.imdb.com/title/{Movie.imdbID}/")"><img src="@Movie.Poster" /></a>
 }
 

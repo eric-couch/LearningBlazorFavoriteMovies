@@ -1,0 +1,43 @@
+﻿@page "/search"
+@using FavoriteMovies.Shared
+@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.Data
+
+
+<label>Search</label>
+<div class="container-fluid mb-5">
+    <div class="row">
+        <div class="col-3">
+            <input type="text" class="form-control" @bind="@searchTerm" />
+        </div>
+        <div class="col-1">
+            <button class="btn btn-primary" @onclick="SearchOMDB">Search</button>
+        </div>
+    </div>
+</div>
+
+@if (OMDBMovies is not null) {
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <SfGrid TValue="MovieSearchResultItem" DataSource="OMDBMovies"
+                        @ref="MoviesGrid"
+                        AllowResizing="true">
+                    <GridSelectionSettings  Type="SelectionType.Multiple" />
+                    <GridEvents RowSelected="GetSelectedRecords"
+                                TValue="MovieSearchResultItem"></GridEvents>
+                    
+                    <GridColumns>
+                        <GridColumn Field="Title" HeaderText="Movie Title" Width="200"></GridColumn>
+                        <GridColumn Field="Year" HeaderText="Movie Year" Width="100"></GridColumn>
+                        <GridColumn Field="Type" HeaderText="Movie Type" Width="100"></GridColumn>
+                    </GridColumns>
+                </SfGrid>
+            </div>
+            <div class="col-4">
+                <img src="@(selectedPoster ?? "")" />
+            </div>
+        </div>
+    </div>
+    
+}

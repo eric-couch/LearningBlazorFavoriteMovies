@@ -14,7 +14,7 @@ namespace FavoriteMovies.Client.Pages
         public UserDto User = null;
         public List<OMDBMovie> userFavoriteMovies { get; set; } = new();
         public OMDBMovie MovieDetails { get; set; }
-
+        private bool isVisible = true;
         private readonly string OMDBAPIKey = "86c39163";
         private readonly string OMDBAPIUrl = "https://www.omdbapi.com/?apikey=";
 
@@ -36,6 +36,7 @@ namespace FavoriteMovies.Client.Pages
                     }
                 }
             }
+            isVisible = false;
         }
 
         private async Task ShowMovieDetails(OMDBMovie movie)

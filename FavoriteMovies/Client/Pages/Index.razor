@@ -1,7 +1,8 @@
 ﻿@page "/"
+@using Syncfusion.Blazor.Spinner
 
-<h1>Hello, @(User?.FirstName ?? "World!")</h1>
-
+@*<h1>Hello, @(User?.FirstName ?? "World!")</h1>*@
+<SfSpinner Visible="@isVisible"></SfSpinner>
 @if (User is not null)
 {
     <h2>Your Favorite Movies Are:</h2>

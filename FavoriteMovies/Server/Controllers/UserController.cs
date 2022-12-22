@@ -10,8 +10,6 @@ using Microsoft.EntityFrameworkCore;
 namespace FavoriteMovies.Server.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
-    [ApiController]
     public class UserController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -24,6 +22,7 @@ namespace FavoriteMovies.Server.Controllers
         }
 
         [HttpGet]
+        [Route("api/User")]
         public async Task<ActionResult<List<Movie>>> GetMovies()
         {
             var user = await _context.Users
@@ -44,6 +43,22 @@ namespace FavoriteMovies.Server.Controllers
             }
 
             return Ok(user);
+        }
+
+        [HttpPost]
+        [Route("api/add-movie")]
+        public async Task<ActionResult> AddMovie([FromBody] Movie movie)
+        {
+            var user = await _userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            user.FavoriteMovies.Add(movie);
+            _context.SaveChanges();
+
+            return Ok();
         }
     }
 }

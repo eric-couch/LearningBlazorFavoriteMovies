@@ -2,6 +2,8 @@
 @using FavoriteMovies.Shared
 @using Syncfusion.Blazor.Grids
 @using Syncfusion.Blazor.Data
+@using Syncfusion.Blazor.Navigations
+@using Syncfusion.Blazor.Notifications
 
 
 <label>Search</label>
@@ -20,13 +22,16 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col">
+                <SfPager @ref="Page" PageSize="10" TotalItemsCount="@totalItems" ItemClick="PageClick">
+                </SfPager>
                 <SfGrid TValue="MovieSearchResultItem" DataSource="OMDBMovies"
                         @ref="MoviesGrid"
-                        AllowResizing="true">
+                        AllowResizing="true"
+                        Toolbar="@(new List<object>() { new ItemModel() { Text = "Add Movie", PrefixIcon="e-add", Id="GridMovieAdd" }})">
                     <GridSelectionSettings  Type="SelectionType.Multiple" />
                     <GridEvents RowSelected="GetSelectedRecords"
+                                OnToolbarClick="ToolbarClickHandler"
                                 TValue="MovieSearchResultItem"></GridEvents>
-                    
                     <GridColumns>
                         <GridColumn Field="Title" HeaderText="Movie Title" Width="200"></GridColumn>
                         <GridColumn Field="Year" HeaderText="Movie Year" Width="100"></GridColumn>
@@ -39,5 +44,12 @@
             </div>
         </div>
     </div>
-    
 }
+<SfToast    @ref="ToastObj" Title="Added Movie"
+             Content="@toastContent"
+             ShowCloseButton="true"
+             ShowProgressBar="true"
+             CssClass="@toastSuccess"
+             Timeout="3000">
+    <ToastPosition X="Center" Y="Top"></ToastPosition>
+</SfToast>
